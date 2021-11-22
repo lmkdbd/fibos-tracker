@@ -9,7 +9,7 @@ describe("blocks case", () => {
 	it("find blocks list", () => {
 		let r = graphql(`
 			{
-				find_fibos_blocks(
+				find_cmeos_blocks(
 					skip: 0,
 					limit: 10,
 					order: "-id"

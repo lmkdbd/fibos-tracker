@@ -4,7 +4,7 @@ const http = require("http");
 const Tracker = require("../");
 const fs = require("fs");
 
-const fibos = require("fibos");
+const cmeos = require("cmeos");
 
 const config = {
 	"config_dir": "./blockData/data",
@@ -16,17 +16,17 @@ const config = {
 		'127.0.0.1:9804',
 		'127.0.0.1:9805'
 	],
-	"DBconnString": "mysql://root:123456@127.0.0.1/fibos_mainnet"
+	"DBconnString": "mysql://root:123456@127.0.0.1/cmeos_mainnet"
 };
 
-fibos.config_dir = config.config_dir;
-fibos.data_dir = config.data_dir;
+cmeos.config_dir = config.config_dir;
+cmeos.data_dir = config.data_dir;
 
-console.notice("config_dir:", fibos.config_dir);
-console.notice("data_dir:", fibos.data_dir);
+console.notice("config_dir:", cmeos.config_dir);
+console.notice("data_dir:", cmeos.data_dir);
 
 
-fibos.load("http", {
+cmeos.load("http", {
 	"http-server-address": "0.0.0.0:8888",
 	"access-control-allow-origin": "*",
 	"http-validate-host": false,
@@ -34,11 +34,11 @@ fibos.load("http", {
 });
 
 
-fibos.load("net", {
+cmeos.load("net", {
 	"p2p-peer-address": config.p2p,
 	"max-clients": 100,
 	"p2p-listen-endpoint": "0.0.0.0:9999",
-	"agent-name": "FIBOS Seed"
+	"agent-name": "CMEOS Seed"
 });
 
 let chain_config = {
@@ -49,17 +49,17 @@ let chain_config = {
 
 chain_config['genesis-json'] = "genesis.json";
 
-fibos.load("producer", {
+cmeos.load("producer", {
 	'max-transaction-time': 3000
 });
 
-fibos.load("chain", chain_config);
-fibos.load("chain_api");
-fibos.load("emitter");
+cmeos.load("chain", chain_config);
+cmeos.load("chain_api");
+cmeos.load("emitter");
 
 
 Tracker.Config.DBconnString = config.DBconnString;
 const tracker = new Tracker();
-tracker.emitter(fibos);
+tracker.emitter(cmeos);
 
-fibos.start();
+cmeos.start();

@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 ["", "\-shm", "\-wal"].forEach(function(k) {
-	if (fs.exists("./fibos_chain.db" + k)) fs.unlink("./fibos_chain.db" + k);
+	if (fs.exists("./cmeos_chain.db" + k)) fs.unlink("./cmeos_chain.db" + k);
 });
 
 let setLogs = (logPath) => {
@@ -34,44 +34,44 @@ let setLogs = (logPath) => {
 
 setLogs("./logs/");
 
-// [fibos]
-const fibos = require("fibos");
-fibos.config_dir = "./data";
-fibos.data_dir = "./data";
-fibos.load("http", {
+// [cmeos]
+const cmeos = require("cmeos");
+cmeos.config_dir = "./data";
+cmeos.data_dir = "./data";
+cmeos.load("http", {
 	"http-server-address": "0.0.0.0:8870",
 	"access-control-allow-origin": "*",
 	"http-validate-host": false,
 	"verbose-http-errors": true
 });
 
-fibos.load("net", {
+cmeos.load("net", {
 	"p2p-peer-address": ["127.0.0.1:9801"],
 	"p2p-listen-endpoint": "0.0.0.0:9870"
 });
 
-fibos.load("producer");
-fibos.load("chain", {
+cmeos.load("producer");
+cmeos.load("chain", {
 	"contracts-console": true,
 	"delete-all-blocks": true,
 	"genesis-json": "genesis.json"
 });
 
-fibos.load("chain_api");
+cmeos.load("chain_api");
 
-//[fibos-tracker]
+//[cmeos-tracker]
 const Tracker = require("../");
 
 // Tracker.Config.replay = true;
 // Tracker.Config.replayStatrBn = 0;
-Tracker.Config.DBconnString = "mysql://root:123456@127.0.0.1/fibos_chain";
+Tracker.Config.DBconnString = "mysql://root:123456@127.0.0.1/cmeos_chain";
 
 const tracker = new Tracker();
 
 tracker.use(require("./addons/eosio_token_transfers.js"));
 tracker.emitter();
 
-fibos.start();
+cmeos.start();
 
 // [http server]
 const http = require("http");

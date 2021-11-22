@@ -1,20 +1,21 @@
 {
-	"name": "fibos-tracker",
+	"name": "@lmkdbd/cmeos-tracker",
 	"main": "./lib/",
-	"version": "1.4.1",
-	"description": "a tracking data and api service based on FIBOS/EOS blockchain nodes.",
+	"version": "1.4.2",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"tag": "beta",
+		"access": "public"
+	},
+	"description": "a tracking data and api service based on CMEOS blockchain nodes.",
 	"scripts": {
-		"test": "fibos test",
+		"test": "cmeos test",
 		"ci": "npm run test"
 	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/FIBOSIO/fibos-tracker"
-	},
 	"keywords": [
-		"fibos"
+		"cmeos"
 	],
-	"author": "fibos",
+	"author": "cmeos",
 	"license": "ISC",
 	"dependencies": {
 		"@fibjs/detect-port": "^1.0.2",

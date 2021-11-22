@@ -5,7 +5,7 @@ const test = require('test');
 const path = require("path");
 
 ["", "\-shm", "\-wal"].forEach(function(k) {
-	if (fs.exists("./fibos_chain.db" + k)) fs.unlink("./fibos_chain.db" + k);
+	if (fs.exists("./cmeos_chain.db" + k)) fs.unlink("./cmeos_chain.db" + k);
 });
 
 require("./init.js");
